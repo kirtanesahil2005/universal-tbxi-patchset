@@ -1,0 +1,7 @@
+.deps
+build
+*.map
+*.pef
+*.xcoff
+*.bin
+org.asm

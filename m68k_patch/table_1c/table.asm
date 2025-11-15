@@ -1,0 +1,20 @@
+off_FFC05F60:   dc.l unk_FFC08460       ; DATA XREF: set_table_1c↑o
+                dc.l sub_FFC3F1C0
+                dc.l sub_FFC3F210
+                dc.l sub_FFC3EDE0
+                dc.l sub_FFC3EE30
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC20346
+                dc.l sub_FFC3EF30
+                dc.l sub_FFC3F000
+                dc.l sub_FFC3F0A0
+                dc.l sub_FFC3F100
+                dc.l sub_FFC3F150
+                dc.l 0
+                dc.l 0
