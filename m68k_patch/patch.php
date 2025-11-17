@@ -263,6 +263,39 @@ if ($type != 0) {
 	}
 */
 }
+{
+	// final fixup (for all types): gestalt init hook
+	$offset = substr($ppc, -4);
+	$ppc = substr($ppc, 0, -4);
+	$offset = @end(unpack('N', $offset));
+	
+	// find the place to patch
+	$patchLoc = strpos($maincode, "\xA7\x1E\x21\xC8\x02\xB6");
+	if ($patchLoc === false) die("could not find gestalt init func to patch\n");
+	$patchLoc += 0x18;
+	// get the original func offset
+	$origFunc = @end(unpack('N', substr($maincode, $patchLoc, 4)));
+	$origFunc += $patchLoc;
+	
+	// patch our code to call it
+	$ourOff = $offset - 0xffc00000;
+	$ourOffPart = $ourOff - strlen($maincode);
+	$jumpOff = $origFunc - ($ourOff + 2);
+	$jumpOff &= 0xFFFFFFFF;
+	$ppc =
+		substr($ppc, 0, $ourOffPart + 2) .
+		pack("N", $jumpOff) .
+		substr($ppc, $ourOffPart + 6);
+	
+	// patch the existing jump to call our code
+	$jumpOff = $ourOff - $patchLoc;
+	$jumpOff &= 0xFFFFFFFF;
+	$maincode =
+		substr($maincode, 0, $patchLoc) .
+		pack("N", $jumpOff) .
+		substr($maincode, $patchLoc + 4);
+	
+}
 // add our code onto the end
 $ourOff = strlen($maincode);
 $maincode .= $ppc;

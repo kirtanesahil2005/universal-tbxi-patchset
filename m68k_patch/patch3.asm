@@ -34,7 +34,8 @@ dummy_rts_for_no_op:
 loc_FFC0A78C:
 	jmp (a5)
 	nop ; for alignment
-
+	
+	include "gestalt_fix.asm"
 
 	include "table_70/sub_ffc0a8c0.asm"
 	include "table_extras/code.asm" ; ffc13090-ffc1336c
@@ -86,6 +87,7 @@ unk_FFCC9C0E:           dc.b 4,'.MPP', 0           ; DATA XREF: sub_FFCC9D00+2Câ
 	include "table_78/table_version.asm"
 
 	; Additional weirdness (comes last in the footer when reading backwards)
+	dc.l gestalt_fix ; point to gestalt init hook
 	dc.l sub_FFC79750 ; 2b6->240 init function removed between 9.0 and 9.0.4
 	; Existing table relocation patches
 table_reloc_start:

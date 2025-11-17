@@ -13,6 +13,8 @@
 
 	include "set_ppc_table.asm"
 	
+	include "gestalt_fix.asm"
+	
 	include "ppc_modules.asm"
 	
 	include "open_something.asm" ; ffcc9530
@@ -32,6 +34,9 @@ unk_FFCC9C0E:           dc.b 4,'.MPP', 0           ; DATA XREF: sub_FFCC9D00+2Câ
 	dc.b 0,0
 
 	include "ppc_table_version.asm"
+
+	; Additional weirdness (comes last in the footer when reading backwards)
+	dc.l gestalt_fix ; point to gestalt init hook
 
 trap_entry_start:
 	dc.l sub_FFC2FF80-$FFC00000 ; PPC trap os dd
